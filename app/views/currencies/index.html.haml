@@ -3,4 +3,11 @@
 %p
   = link_to "New currency", new_resource_path
 
-= render :partial => collection, :layout => 'table'
+%table
+  %thead
+    %tr
+      %th Name
+      %th ISO Code
+      %th Symbol
+  %tbody
+    = render collection

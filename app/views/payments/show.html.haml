@@ -19,40 +19,56 @@
 
   %h2 Transaction details
 
-  = render :partial => resource.sage_pay_transactions, :layout => 'sage_pay_transactions/table'
+  %table
+    %thead
+      %tr
+        %th Our txid
+        %th Sage txid
+        %th status
+        %th Transaction type
+        %th Authorisation code
+        %th Card type
+        %th Last 4 Digits
+    %tbody
+      = render :partial => 'sage_pay_transaction', :collection => resource.sage_pay_transactions
 
 %ul
   - if resource.in_progress?
     %li Payment in progress...
+
   - elsif resource.complete?
     %li Payment completed.
+
     - if resource.paid?
       Full payment made.
-      = link_to 'Refund', refund_payment_path(resource), :method => :put
+      = button_to 'Refund', refund_payment_path(resource), :method => :put
+      = button_to "Repeat transaction", repeat_payment_path(resource), :method => :put
     - elsif resource.deferred?
-      Payment deferred. #{link_to 'Release', release_payment_path(resource), :method => :put} or #{link_to 'abort', abort_payment_path(resource), :method => :put} payment.
+      Payment deferred. #{button_to 'Release', release_payment_path(resource), :method => :put} or #{button_to 'abort', abort_payment_path(resource), :method => :put} payment.
     - elsif resource.released?
       Deferred payment has been released. Full payment made.
-      = link_to 'Refund', refund_payment_path(resource), :method => :put
+      = button_to 'Refund', refund_payment_path(resource), :method => :put
     - elsif resource.authorised?
       Card authorised.
-      = link_to "Repeat transaction", repeat_payment_path(resource), :method => :put
+      = button_to "Repeat transaction", repeat_payment_path(resource), :method => :put
       or
-      = link_to "cancel authorisation", cancel_payment_path(resource), :method => :put
+      = button_to "cancel authorisation", cancel_payment_path(resource), :method => :put
     - elsif resource.authenticated?
       Card authenticated.
-      = link_to "Authorise", authorise_payment_path(resource), :method => :put
+      = button_to "Authorise", authorise_payment_path(resource), :method => :put
       or
-      = link_to "cancel", cancel_payment_path(resource), :method => :put
+      = button_to "cancel", cancel_payment_path(resource), :method => :put
       card.
     - elsif resource.cancelled?
       Authorisation cancelled.
     - elsif resource.failed?
       Payment failed.
+
   - else
     %li= button_to 'Make payment now', payment_sage_pay_transaction_path(resource, :tx_type => "payment"), :method => :post
-    %li= link_to 'Defer payment', payment_sage_pay_transaction_path(resource, :tx_type => "deferred"), :method => :post
-    %li= link_to 'Authorise future payments', payment_sage_pay_transaction_path(resource, :tx_type => "authenticate"), :method => :post
+    %li= button_to 'Defer payment', payment_sage_pay_transaction_path(resource, :tx_type => "deferred"), :method => :post
+    %li= button_to 'Authorise future payments', payment_sage_pay_transaction_path(resource, :tx_type => "authenticate"), :method => :post
     %li= link_to 'edit details', edit_resource_path
+
   %li= link_to 'all payments', collection_path
-  %li= link_to 'delete', resource_path, :method => :delete
+  %li= button_to 'delete', resource_path, :method => :delete

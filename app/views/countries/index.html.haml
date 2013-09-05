@@ -3,4 +3,10 @@
 %p
   = link_to "New country", new_resource_path
 
-= render :partial => collection, :layout => 'table'
+%table
+  %thead
+    %tr
+      %th Name
+      %th ISO Code
+  %tbody
+    = render collection

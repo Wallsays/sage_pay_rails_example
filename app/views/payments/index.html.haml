@@ -3,4 +3,13 @@
 %p
   = link_to "New payment", new_resource_path
 
-= render :partial => collection, :layout => 'table'
+%table
+  %thead
+    %tr
+      %th Transaction ID
+      %th Description
+      %th Created
+      %th Amount
+      %th Status
+  %tbody
+    = render collection

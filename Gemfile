@@ -12,6 +12,7 @@ gem 'sage_pay', '1.0.0'
 gem 'inherited_resources'
 gem 'formtastic'
 gem 'haml'
+gem 'slim'
 gem 'compass'
 gem 'show_for', '~> 0.1.3'
 

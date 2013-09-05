@@ -7,26 +7,26 @@
     - if payment.complete?
       - if payment.paid?
         Complete, authorisation code #{payment.latest_sage_pay_transaction.authorisation_code}.
-        = link_to 'Refund', refund_payment_path(payment), :method => :put
+        = button_to 'Refund', refund_payment_path(payment), :method => :put
       - elsif payment.authorised?
         Authorised.
-        = link_to "Repeat", repeat_payment_path(payment), :method => :put
+        = button_to "Repeat", repeat_payment_path(payment), :method => :put
         or
-        = link_to "cancel", cancel_payment_path(payment), :method => :put
+        = button_to "cancel", cancel_payment_path(payment), :method => :put
       - elsif payment.authenticated?
         Authenticated.
-        = link_to "Authorise", authorise_payment_path(payment), :method => :put
+        = button_to "Authorise", authorise_payment_path(payment), :method => :put
         or
-        = link_to "cancel", cancel_payment_path(payment), :method => :put
+        = button_to "cancel", cancel_payment_path(payment), :method => :put
       - elsif payment.deferred?
         Deferred, authorisation code #{payment.latest_sage_pay_transaction.authorisation_code}
-        = link_to 'Release', release_payment_path(payment), :method => :put
+        = button_to 'Release', release_payment_path(payment), :method => :put
         or
-        = link_to 'abort', abort_payment_path(payment), :method => :put
+        = button_to 'abort', abort_payment_path(payment), :method => :put
         payment.
       - else
         Failed!
     - elsif payment.in_progress?
       In progress
     - else
-      = link_to 'Make payment', payment_sage_pay_transaction_path(payment), :method => :post
+      = button_to 'Make payment', payment_sage_pay_transaction_path(payment), :method => :post
