@@ -8,7 +8,7 @@ SagePay::Server.default_registration_options[:vendor] = "netoctone"
 # here, or this would be +notifications_url+. On the plus side, it's submitted
 # as a POST, so we can pretend they meant to deliver a RESTful :create action.
 # :)
-SagePay::Server.default_registration_options[:notification_url] = "https://arcane-ridge-7513.herokuapp.com/notifications"
+SagePay::Server.default_registration_options[:notification_url] = "http://arcane-ridge-7513.herokuapp.com/notifications"
 
 # Set the mode globally. Normally, you'd probably want to have different
 # settings for different environments (eg :test in staging and :live in
