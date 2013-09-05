@@ -152,12 +152,22 @@ class Payment < ActiveRecord::Base
   end
 
   def repeat
-    if authorised?
+    Rails.logger.error "paid? #{paid?}"
+    Rails.logger.error "authorised? #{authorised?}"
+    Rails.logger.error "complete? #{complete?}"
+
+    transaction = if latest_sage_pay_transaction.paid?
+      latest_sage_pay_transaction
+    elsif authorised?
+      latest_authorised_sage_pay_transaction
+    end
+
+    if transaction
       sage_pay_repeat = SagePay::Server.repeat(
         :amount              => amount,
         :currency            => currency.iso_code,
         :description         => "Repeat: #{description}",
-        :related_transaction => latest_authorised_sage_pay_transaction.to_related_transaction
+        :related_transaction => transaction.to_related_transaction
       )
 
       self.response = sage_pay_repeat.run!
