@@ -155,8 +155,10 @@ class Payment < ActiveRecord::Base
     Rails.logger.error "paid? #{paid?}"
     Rails.logger.error "authorised? #{authorised?}"
     Rails.logger.error "complete? #{complete?}"
+    Rails.logger.error "repeated? #{repeated?}"
+    Rails.logger.error "latest.status #{latest_sage_pay_transaction.status}"
 
-    transaction = if latest_sage_pay_transaction.paid?
+    transaction = if latest_sage_pay_transaction.paid? || latest_sage_pay_transaction.repeated?
       latest_sage_pay_transaction
     elsif authorised?
       latest_authorised_sage_pay_transaction
@@ -164,7 +166,7 @@ class Payment < ActiveRecord::Base
 
     if transaction
       sage_pay_repeat = SagePay::Server.repeat(
-        :amount              => amount,
+        :amount              => amount + 100,
         :currency            => currency.iso_code,
         :description         => "Repeat: #{description}",
         :related_transaction => transaction.to_related_transaction
@@ -220,6 +222,10 @@ class Payment < ActiveRecord::Base
 
   def paid?
     complete? && latest_sage_pay_transaction.paid?
+  end
+
+  def repeated?
+    complete? && latest_sage_pay_transaction.repeated?
   end
 
   def deferred?

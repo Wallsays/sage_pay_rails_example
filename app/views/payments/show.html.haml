@@ -39,7 +39,7 @@
   - elsif resource.complete?
     %li Payment completed.
 
-    - if resource.paid?
+    - if resource.paid? || resource.repeated?
       Full payment made.
       = button_to 'Refund', refund_payment_path(resource), :method => :put
       = button_to "Repeat transaction", repeat_payment_path(resource), :method => :put

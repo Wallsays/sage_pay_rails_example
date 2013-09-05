@@ -68,6 +68,10 @@ class SagePayTransaction < ActiveRecord::Base
     success? && transaction_type == "payment"
   end
 
+  def repeated?
+    status == "repeated"
+  end
+
   def deferred?
     success? && transaction_type == "deferred"
   end
