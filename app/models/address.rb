@@ -1,4 +1,6 @@
 class Address < ActiveRecord::Base
+  attr_accessible :first_names, :surname, :address_1, :address_2, :city, :post_code, :country_id, :state, :phone
+
   belongs_to :country
   belongs_to :payment
 

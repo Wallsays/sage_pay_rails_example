@@ -1,4 +1,4 @@
-- content_tag :tr, payment do
+= content_tag :tr, payment do
   %td=h payment.transaction_code || "None yet"
   %td= link_to h(payment.description), payment
   %td=h payment.created_at.to_s(:long)

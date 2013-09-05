@@ -1,6 +1,5 @@
 class SagePayTransactionsController < InheritedResources::Base
   belongs_to :payment
-  actions :create
 
   def show
     @next_url = session[:next_url]

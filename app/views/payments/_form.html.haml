@@ -1,7 +1,7 @@
-- semantic_form_for resource do |form|
-  = form.error_messages
+= semantic_form_for resource do |form|
+  = form.semantic_errors
 
-  - form.inputs do
+  = form.inputs do
     = form.input :description
     = form.input :amount
     = form.input :currency, :include_blank => false
@@ -15,5 +15,5 @@
 
   = render :partial => 'addresses/fields', :locals => { :form => form, :address => (resource.delivery_address || resource.build_delivery_address), :address_type => :delivery_address }
 
-  - form.buttons do
-    = form.commit_button
+  = form.actions do
+    = form.action :submit, :as => :button

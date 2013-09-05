@@ -1,7 +1,7 @@
-- semantic_form_for resource do |form|
-  - form.inputs do
+= semantic_form_for resource do |form|
+  = form.inputs do
     = form.input :name
     = form.input :iso_code
     = form.input :symbol
-  - form.buttons do
-    = form.commit_button
+  = form.actions do
+    = form.action :submit, :as => :button

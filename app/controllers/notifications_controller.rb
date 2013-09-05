@@ -1,6 +1,5 @@
-class NotificationsController < InheritedResources::Base
-  skip_before_filter :verify_authenticity_token, :only => [ :create ]
-  actions :create
+class NotificationsController < ApplicationController
+  protect_from_forgery :except => :create
 
   def create
     sage_pay_transaction = SagePayTransaction.record_notification_from_params(params)

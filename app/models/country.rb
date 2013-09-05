@@ -1,4 +1,6 @@
 class Country < ActiveRecord::Base
+  attr_accessible :name, :iso_code
+
   validates_presence_of   :name, :iso_code
   validates_uniqueness_of :name, :iso_code
 

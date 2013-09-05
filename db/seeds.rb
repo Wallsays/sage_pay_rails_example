@@ -1,3 +1,4 @@
+#encoding: utf-8
 
 # Default set of currencies
 Currency.find_or_create_by_iso_code(:name => "Pounds Sterling", :iso_code => "GBP", :symbol => "£")

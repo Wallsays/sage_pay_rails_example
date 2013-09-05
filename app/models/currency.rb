@@ -1,4 +1,6 @@
 class Currency < ActiveRecord::Base
+  attr_accessible :name, :iso_code, :symbol
+
   validates_presence_of   :name, :iso_code, :symbol
   validates_uniqueness_of :name, :iso_code
 

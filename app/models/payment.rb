@@ -1,4 +1,5 @@
 class Payment < ActiveRecord::Base
+  attr_accessible :description, :amount, :currency_id, :billing_address_attributes, :delivery_address_attributes
   attr_accessor :response
 
   belongs_to :currency
