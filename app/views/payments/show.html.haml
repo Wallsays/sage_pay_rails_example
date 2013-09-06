@@ -29,6 +29,7 @@
         %th Authorisation code
         %th Card type
         %th Last 4 Digits
+        %th Related Auth code
     %tbody
       = render :partial => 'sage_pay_transaction', :collection => resource.sage_pay_transactions
 
@@ -43,6 +44,7 @@
       Full payment made.
       = button_to 'Refund', refund_payment_path(resource), :method => :put
       = button_to "Repeat transaction", repeat_payment_path(resource), :method => :put
+      = button_to 'Repeat first paid', repeat_payment_path(resource, :first_paid => true), :method => :put
     - elsif resource.deferred?
       Payment deferred. #{button_to 'Release', release_payment_path(resource), :method => :put} or #{button_to 'abort', abort_payment_path(resource), :method => :put} payment.
     - elsif resource.released?

@@ -1,6 +1,7 @@
 class SagePayTransaction < ActiveRecord::Base
   attr_accessible :transaction_type, :vendor, :our_transaction_code, :security_key, :sage_transaction_code,
-                  :status, :authorisation_code, :avs_cv2_matched, :address_matched, :post_code_matched, :cv2_matched, :gift_aid, :threed_secure_ok, :card_type, :last_4_digits
+                  :status, :authorisation_code, :avs_cv2_matched, :address_matched, :post_code_matched, :cv2_matched, :gift_aid, :threed_secure_ok, :card_type, :last_4_digits,
+                  :related_auth_code
 
   attr_accessor :notification
 
